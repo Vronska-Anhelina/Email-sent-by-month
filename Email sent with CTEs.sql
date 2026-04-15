@@ -3,7 +3,7 @@ WITH data AS(
 
 SELECT DATE_TRUNC(DATE_ADD(ss.date, INTERVAL es.sent_date DAY), MONTH) AS sent_month,
 id_message,id_account,
-DATE_ADD(ss.date,INTERVAL es.sent_date DAY) AS real_date--дати відправки повідомлень
+DATE_ADD(ss.date,INTERVAL es.sent_date DAY) AS real_date --message sending dates
 FROM `DA.email_sent` es
 JOIN `DA.account` a
 ON es.id_account=a.id
@@ -16,7 +16,7 @@ acc_month AS(
 
 SELECT id_account,COUNT(id_message) AS message,sent_month,
 MIN(real_date),
- MAX(real_date) --листів за акаунтами та місяцями
+ MAX(real_date) --letters by account and month
 FROM data
 GROUP BY sent_month, id_account),
 months_total AS (
